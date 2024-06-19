@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vishnu
+spec:
+  replicas: 1   # Adjust as needed
+  selector:
+    matchLabels:
+      app: vishnu
+  template:
+    metadata:
+      labels:
+        app: vishnu
+    spec:
+      containers:
+      - name: vishnu
+        image: vishnu155/icerems:latest   # Replace with your Docker image
+        ports:
+        - containerPort: 80    # Port your application listens on
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vishnu
+spec:
+  selector:
+    app: vishnu
+  ports:
+    - protocol: TCP
+      port: 80     # Port exposed by the service
+      targetPort: 80   # Port on the container
